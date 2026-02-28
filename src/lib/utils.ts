@@ -21,7 +21,7 @@ export function formatDate(date: Date | string): string {
 }
 
 export function generateOrderNumber(): string {
-  return `MC-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+  return `MC-${Date.now()}-${Math.random().toString(36).substring(2, 11).toUpperCase()}`;
 }
 
 export function calculateTax(subtotal: number): number {

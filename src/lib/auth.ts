@@ -3,6 +3,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import GitHubProvider from 'next-auth/providers/github';
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 import connectDB from './mongodb';
 import UserModel from '@/models/User';
 
@@ -75,7 +76,7 @@ export const authOptions: NextAuthOptions = {
             email: user.email,
             avatar: user.image,
             role: 'user',
-            password: await bcrypt.hash(Math.random().toString(36), 10),
+            password: await bcrypt.hash(crypto.randomBytes(32).toString('hex'), 10),
           });
         }
       }

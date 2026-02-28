@@ -50,7 +50,13 @@ export const useCartStore = create<CartStore>()(
       toggleCart: () => set((state) => ({ isOpen: !state.isOpen })),
       getTotal: () => {
         const { items } = get();
-        return items.reduce((total, item) => total + item.menuItem.price * item.quantity, 0);
+        return items.reduce((total, item) => {
+          const sizePrice = item.size
+            ? item.menuItem.sizes?.find((s) => s.name === item.size)?.price
+            : undefined;
+          const unitPrice = sizePrice ?? item.menuItem.price;
+          return total + unitPrice * item.quantity;
+        }, 0);
       },
       getItemCount: () => {
         const { items } = get();
